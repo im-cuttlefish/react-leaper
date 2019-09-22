@@ -1,0 +1,27 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "react-hooks",
+    "prettier"
+  ],
+  "rules": {
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "react/prop-types": "off",
+    "no-constant-condition": "off"
+  },
+  "parser": "@typescript-eslint/parser",
+  "env": { "browser": true, "node": true, "es6": true },
+  "parserOptions": {
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  }
+}
