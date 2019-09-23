@@ -8,7 +8,9 @@ export type Interpolater = (
 ) => number;
 
 export interface TransitionProps {
-  [key: string]: [number, number, ((x: number) => string) | void];
+  [key: string]:
+    | [number, number]
+    | ((x: number | string | void) => [number, number]);
 }
 
 export type Transition = (

@@ -7,16 +7,20 @@ export const createTransition = (interpolater: Interpolater): Transition => (
   props,
   abort
 ) => {
-  const entries = Object.entries(props);
-  const to: Style = {};
+  const getIntervals = (style: Style) =>
+    Object.entries(props).map(([key, value]): [string, [number, number]] =>
+      typeof value === "function" ? [key, value(style[key])] : [key, value]
+    );
 
-  for (const [key, [, x, template]] of entries) {
-    to[key] = template ? template(x) : x;
-  }
+  return function*(style) {
+    const entries = getIntervals(style);
+    const destination: Style = {};
 
-  return function*() {
+    for (const [key, [, x]] of entries) {
+      destination[key] = x;
+    }
+
     let aborted = false;
-    let passed = 0;
 
     const abortCallback = () => {
       aborted = true;
@@ -26,24 +30,25 @@ export const createTransition = (interpolater: Interpolater): Transition => (
       abort[registerCallback](abortCallback);
     }
 
+    let passed = 0;
+
     while (true) {
+      if (passed >= duration || aborted) {
+        abort && abort[unregisterCallback](abortCallback);
+        return destination;
+      }
+
       const result: Style = {};
 
-      if (passed >= duration || aborted) {
-        if (abort) {
-          abort[unregisterCallback](abortCallback);
-        }
-
-        return to;
+      for (const [key, [from, to]] of entries) {
+        result[key] = interpolater(passed, from, to, duration);
       }
 
-      for (const [key, [from, to, template]] of entries) {
-        const num = interpolater(passed, from, to, duration);
-        const value = template ? template(num) : num;
-        result[key] = value;
+      try {
+        passed += yield result;
+      } catch {
+        abort && abort[unregisterCallback](abortCallback);
       }
-
-      passed += yield result;
     }
   };
 };
