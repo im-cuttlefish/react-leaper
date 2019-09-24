@@ -4,3 +4,4 @@ export { createDispatcher } from "./createDispatcher";
 export { attatchDispatcher } from "./attatchDispatcher";
 export { useDispatcher } from "./useDispatcher";
 export * from "./types";
+export * from "./operator";

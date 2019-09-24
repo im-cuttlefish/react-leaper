@@ -1,6 +1,6 @@
 import { registerCallback, unregisterCallback } from "./internal/symbol";
 export interface Style {
-    [key: string]: string | number | undefined;
+    [key: string]: string | number;
 }
 export declare type MotionGenerator = Generator<Style, void | Style, number>;
 export declare type Motion = (current: Style) => MotionGenerator;

@@ -5,7 +5,7 @@ export interface Props {
   remove: Motion;
   initial: Style;
   noticeAnimationEnd: () => void;
-  children: (style: Partial<Style>) => ReactElement;
+  children: (style: Style) => ReactElement;
 }
 
 export const UnmountedLeaper = (props: Props) => {

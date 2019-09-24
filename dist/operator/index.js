@@ -1,6 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var all_1 = require("./all");
-exports.all = all_1.all;
+var createTransition_1 = require("./createTransition");
+exports.createTransition = createTransition_1.createTransition;
 var linear_1 = require("./linear");
 exports.linear = linear_1.linear;
+var series_1 = require("./series");
+exports.series = series_1.series;
+var pallarel_1 = require("./pallarel");
+exports.pallarel = pallarel_1.pallarel;
+var repeat_1 = require("./repeat");
+exports.repeat = repeat_1.repeat;
+var template_1 = require("./template");
+exports.template = template_1.template;

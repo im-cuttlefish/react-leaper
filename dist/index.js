@@ -1,4 +1,7 @@
 "use strict";
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 Object.defineProperty(exports, "__esModule", { value: true });
 var Leaper_1 = require("./Leaper");
 exports.Leaper = Leaper_1.Leaper;
@@ -10,3 +13,4 @@ var attatchDispatcher_1 = require("./attatchDispatcher");
 exports.attatchDispatcher = attatchDispatcher_1.attatchDispatcher;
 var useDispatcher_1 = require("./useDispatcher");
 exports.useDispatcher = useDispatcher_1.useDispatcher;
+__export(require("./operator"));

@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useDispatcher, Leaper, LeaperContainer, Motion } from "../../";
+import {
+  useDispatcher,
+  Leaper,
+  LeaperContainer,
+  Motion,
+  linear,
+  repeat,
+  template
+} from "../../";
 
 const blinkMotion: Motion = function*() {
   let passed = 0;
@@ -10,28 +18,12 @@ const blinkMotion: Motion = function*() {
   }
 };
 
-const rotateMotion: Motion = function*() {
-  let passed = 0;
+const rotateMotion = template(
+  repeat(Infinity, linear(1000, { transform: [0, 360] })),
+  { transform: x => `rotate(${x}deg)` }
+);
 
-  while (true) {
-    const transform = `rotate(${passed / 500}rad)`;
-    passed += yield { transform };
-  }
-};
-
-const removeMotion: Motion = function*() {
-  let passed = 0;
-
-  while (true) {
-    const opacity = Math.cos(passed / 1000);
-
-    if (opacity <= 0) {
-      return { opacity: 0 };
-    }
-
-    passed += yield { opacity };
-  }
-};
+const removeMotion = linear(1000, { opacity: [1, 0] });
 
 const initial = {
   display: "inline-block",

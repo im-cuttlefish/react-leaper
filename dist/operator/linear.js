@@ -1,16 +1,4 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.linear = (duration, props) => function* () {
-    const entries = Object.entries(props);
-    const passed = 0;
-    while (true) {
-        if (passed >= duration) {
-            const to = {};
-            for (const [key, [, value, template]] of entries) {
-                to[key] = template ? template(value) : value;
-            }
-            yield to;
-            break;
-        }
-    }
-};
+const createTransition_1 = require("./createTransition");
+exports.linear = createTransition_1.createTransition((current, from, to, duration) => from + (to - from) * (current / duration));

@@ -1,5 +1,5 @@
 import { createTransition } from "./createTransition";
 
 export const linear = createTransition(
-  (current, from, to, duration) => (to - from) * (current / duration)
+  (current, from, to, duration) => from + (to - from) * (current / duration)
 );

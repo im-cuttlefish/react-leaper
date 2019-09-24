@@ -73,13 +73,6 @@ export class Leaper extends Component<Props, State> {
 
     cancelAnimationFrame(this.frameID);
 
-    for (const motion of this.currentMotion) {
-      try {
-        motion.throw(null);
-        // eslint-disable-next-line no-empty
-      } catch {}
-    }
-
     for (const [dispatcher, callback] of this.motionCallback) {
       dispatcher[unregisterCallback](callback);
     }
