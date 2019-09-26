@@ -9,11 +9,16 @@ export const series = (...motions: Motion[]): Motion =>
       while (true) {
         const { done, value } = generator.next(delta);
         style = { ...style, ...value };
-        delta = yield value as Style;
 
         if (done) {
+          if (value) {
+            delta = yield value;
+          }
+
           continue;
         }
+
+        delta = yield value as Style;
       }
     }
   };

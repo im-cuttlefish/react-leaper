@@ -10,9 +10,12 @@ exports.template = (templateMap, motion) => function* (style) {
                 style[key] = key in templateMap ? templateMap[key](value) : value;
             }
         }
-        delta = yield style;
         if (done) {
+            if (style) {
+                delta = yield style;
+            }
             continue;
         }
+        delta = yield style;
     }
 };

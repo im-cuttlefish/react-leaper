@@ -7,10 +7,13 @@ exports.series = (...motions) => function* (style) {
         while (true) {
             const { done, value } = generator.next(delta);
             style = Object.assign(Object.assign({}, style), value);
-            delta = yield value;
             if (done) {
+                if (value) {
+                    delta = yield value;
+                }
                 continue;
             }
+            delta = yield value;
         }
     }
 };

@@ -18,10 +18,14 @@ export const template = (templateMap: TemplateMap, motion: Motion): Motion =>
         }
       }
 
-      delta = yield style as Style;
-
       if (done) {
+        if (style) {
+          delta = yield style;
+        }
+
         continue;
       }
+
+      delta = yield style as Style;
     }
   };

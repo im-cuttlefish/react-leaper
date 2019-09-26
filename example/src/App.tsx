@@ -19,6 +19,7 @@ const rotateMotion = template(
 const removeMotion = sin(1000, { opacity: [1, 0] });
 
 const initial = {
+  opacity: 0,
   display: "inline-block",
   transformOrigin: "center"
 };
