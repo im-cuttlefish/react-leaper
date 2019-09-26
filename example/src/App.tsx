@@ -3,27 +3,20 @@ import {
   useDispatcher,
   Leaper,
   LeaperContainer,
-  Motion,
   linear,
   repeat,
-  template
+  template,
+  sin
 } from "../../";
 
-const blinkMotion: Motion = function*() {
-  let passed = 0;
-
-  while (true) {
-    const opacity = (Math.cos(passed / 100) + 1) / 2;
-    passed += yield { opacity };
-  }
-};
+const blinkMotion = sin(1000, { opacity: [0, 1] });
 
 const rotateMotion = template(
-  repeat(Infinity, linear(1000, { transform: [0, 360] })),
-  { transform: x => `rotate(${x}deg)` }
+  { transform: x => `rotate(${x}deg)` },
+  repeat(Infinity, linear(1000, { transform: [0, 360] }))
 );
 
-const removeMotion = linear(1000, { opacity: [1, 0] });
+const removeMotion = sin(1000, { opacity: [1, 0] });
 
 const initial = {
   display: "inline-block",
@@ -40,7 +33,7 @@ const App: React.FC = () => {
   useEffect(() => {
     setTimeout(blink, 1000);
     setTimeout(rotate, 2000);
-    setTimeout(() => toggleActiveness(false), 3000);
+    setTimeout(() => toggleActiveness(false), 5000);
   }, [blink, rotate]);
 
   return (
