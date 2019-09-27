@@ -2,13 +2,14 @@ import { Motion, Style } from "../types";
 
 export const repeat = (count: number, motion: Motion): Motion =>
   function*(style) {
-    let generator = motion(style);
+    const copy = { ...style };
+    let generator = motion(copy);
     let current = 0;
     let delta = 0;
 
     while (current < count) {
       const { done, value } = generator.next(delta);
-      style = { ...style, ...value };
+      Object.assign(copy, value);
 
       if (done) {
         if (value) {
@@ -16,7 +17,7 @@ export const repeat = (count: number, motion: Motion): Motion =>
         }
 
         current++;
-        generator = motion(style);
+        generator = motion(copy);
         continue;
       }
 

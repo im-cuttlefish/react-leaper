@@ -5,10 +5,10 @@ exports.pallarel = (...motions) => function* (style) {
     let delta = 0;
     while (true) {
         let doneAll = true;
-        let result = {};
+        const result = {};
         for (const generator of generators) {
             const { done, value } = generator.next(delta);
-            result = Object.assign(Object.assign({}, result), value);
+            Object.assign(result, value);
             doneAll = done && doneAll;
         }
         if (doneAll) {

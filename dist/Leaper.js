@@ -12,11 +12,11 @@ class Leaper extends react_1.Component {
             const frame = (progress) => {
                 this.frameID = requestAnimationFrame(frame);
                 const delta = progress - passed;
-                let props = Object.assign({}, this.state.style);
+                const props = Object.assign({}, this.state.style);
                 passed = progress;
                 for (const generator of this.currentMotion) {
                     const { value, done } = generator.next(delta);
-                    props = Object.assign(Object.assign({}, props), value);
+                    Object.assign(props, value);
                     if (done) {
                         this.currentMotion.delete(generator);
                         continue;

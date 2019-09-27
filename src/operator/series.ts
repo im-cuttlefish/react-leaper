@@ -2,13 +2,15 @@ import { Motion, Style } from "../types";
 
 export const series = (...motions: Motion[]): Motion =>
   function*(style) {
+    const copy = { ...style };
+
     for (const motion of motions) {
-      const generator = motion(style);
+      const generator = motion(copy);
       let delta = 0;
 
       while (true) {
         const { done, value } = generator.next(delta);
-        style = { ...style, ...value };
+        Object.assign(copy, value);
 
         if (done) {
           if (value) {

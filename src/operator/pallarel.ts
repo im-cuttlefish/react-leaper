@@ -7,11 +7,11 @@ export const pallarel = (...motions: Motion[]): Motion =>
 
     while (true) {
       let doneAll = true;
-      let result: Style = {};
+      const result: Style = {};
 
       for (const generator of generators) {
         const { done, value } = generator.next(delta);
-        result = { ...result, ...value };
+        Object.assign(result, value);
         doneAll = done!! && doneAll;
       }
 
