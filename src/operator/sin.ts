@@ -1,8 +1,5 @@
 import { createTransition } from "./createTransition";
 
-const { PI } = Math;
+const { PI, cos } = Math;
 
-export const sin = createTransition(
-  (current, from, to, duration) =>
-    from + (to - from) * Math.sin((PI / 2) * (current / duration))
-);
+export const sin = createTransition(x => 1 - (cos(PI * x) + 1) / 2);

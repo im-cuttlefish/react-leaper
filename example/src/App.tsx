@@ -6,14 +6,15 @@ import {
   linear,
   repeat,
   template,
-  sin
+  sin,
+  cubic
 } from "../../";
 
-const blinkMotion = sin(1000, { opacity: [0, 1] });
+const blinkMotion = cubic(1000, { opacity: [0, 1] });
 
 const rotateMotion = template(
   { transform: x => `rotate(${x}deg)` },
-  repeat(Infinity, linear(1000, { transform: [0, 360] }))
+  repeat(Infinity, cubic(1000, { transform: [0, 360] }))
 );
 
 const removeMotion = sin(1000, { opacity: [1, 0] });

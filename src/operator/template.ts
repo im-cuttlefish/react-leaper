@@ -10,22 +10,22 @@ export const template = (templateMap: TemplateMap, motion: Motion): Motion =>
     let delta = 0;
 
     while (true) {
-      const { done, value: style } = generator.next(delta);
+      const { done, value: result } = generator.next(delta);
 
-      if (style) {
-        for (const [key, value] of Object.entries(style)) {
-          style[key] = key in templateMap ? templateMap[key](value) : value;
+      if (result) {
+        for (const [key, value] of Object.entries(result)) {
+          result[key] = key in templateMap ? templateMap[key](value) : value;
         }
       }
 
       if (done) {
-        if (style) {
-          delta = yield style;
+        if (result) {
+          delta = yield result;
         }
 
         continue;
       }
 
-      delta = yield style as Style;
+      delta = yield result as Style;
     }
   };

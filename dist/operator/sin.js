@@ -1,5 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const createTransition_1 = require("./createTransition");
-const { PI } = Math;
-exports.sin = createTransition_1.createTransition((current, from, to, duration) => from + (to - from) * Math.sin((PI / 2) * (current / duration)));
+const { PI, cos } = Math;
+exports.sin = createTransition_1.createTransition(x => 1 - (cos(PI * x) + 1) / 2);

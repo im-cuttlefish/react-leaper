@@ -4,9 +4,9 @@ const symbol_1 = require("../internal/symbol");
 const getIntervals = (props, style) => Object.entries(props).map(([key, value]) => typeof value === "function" ? [key, value(style[key])] : [key, value]);
 exports.createTransition = (interpolater) => (duration, props, abort) => {
     return function* (style) {
-        const entries = getIntervals(props, style);
+        const intervals = getIntervals(props, style);
         const destination = {};
-        for (const [key, [, x]] of entries) {
+        for (const [key, [, x]] of intervals) {
             destination[key] = x;
         }
         let aborted = false;
@@ -26,8 +26,8 @@ exports.createTransition = (interpolater) => (duration, props, abort) => {
                 return destination;
             }
             const result = {};
-            for (const [key, [from, to]] of entries) {
-                result[key] = interpolater(passed, from, to, duration);
+            for (const [key, [from, to]] of intervals) {
+                result[key] = from + (to - from) * interpolater(passed / duration);
             }
             passed += yield result;
         }

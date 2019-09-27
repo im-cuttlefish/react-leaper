@@ -1,5 +1,5 @@
 import { Motion, Dispatcher } from "../types";
-export declare type Interpolater = (current: number, from: number, to: number, duration: number) => number;
+export declare type Interpolater = (x: number) => number;
 export interface TransitionProps {
     [key: string]: [number, number] | ((x: number | string | void) => [number, number]);
 }

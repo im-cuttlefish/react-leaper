@@ -13,10 +13,10 @@ export const createTransition = (interpolater: Interpolater): Transition => (
   abort
 ) => {
   return function*(style) {
-    const entries = getIntervals(props, style);
+    const intervals = getIntervals(props, style);
     const destination: Style = {};
 
-    for (const [key, [, x]] of entries) {
+    for (const [key, [, x]] of intervals) {
       destination[key] = x;
     }
 
@@ -43,8 +43,8 @@ export const createTransition = (interpolater: Interpolater): Transition => (
 
       const result: Style = {};
 
-      for (const [key, [from, to]] of entries) {
-        result[key] = interpolater(passed, from, to, duration);
+      for (const [key, [from, to]] of intervals) {
+        result[key] = from + (to - from) * interpolater(passed / duration);
       }
 
       passed += yield result;
