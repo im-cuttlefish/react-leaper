@@ -1,6 +1,10 @@
 import { Motion, Style } from "../types";
 
-export const repeat = (count: number, motion: Motion): Motion =>
+export const repeat = (
+  motion: Motion,
+  count: number,
+  disjoint?: boolean
+): Motion =>
   function*(style) {
     const copy = { ...style };
     let generator = motion(copy);
@@ -12,7 +16,7 @@ export const repeat = (count: number, motion: Motion): Motion =>
       Object.assign(copy, value);
 
       if (done) {
-        if (value) {
+        if (value && !disjoint) {
           delta = yield value;
         }
 

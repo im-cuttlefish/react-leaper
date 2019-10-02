@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.template = (templateMap, motion) => function* (style) {
+exports.template = (motion, templateMap) => function* (style) {
     const generator = motion(style);
     let delta = 0;
     while (true) {

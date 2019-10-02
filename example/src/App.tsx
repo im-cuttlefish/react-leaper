@@ -3,18 +3,18 @@ import {
   useDispatcher,
   Leaper,
   LeaperContainer,
-  linear,
   repeat,
   template,
   sin,
-  cubic
+  cubic,
+  linear
 } from "../../";
 
 const blinkMotion = cubic(1000, { opacity: [0, 1] });
 
 const rotateMotion = template(
-  { transform: x => `rotate(${x}deg)` },
-  repeat(Infinity, cubic(1000, { transform: [0, 360] }))
+  repeat(linear(1000, { transform: [0, 360] }), Infinity, true),
+  { transform: x => `rotate(${x}deg)` }
 );
 
 const removeMotion = sin(1000, { opacity: [1, 0] });
@@ -42,7 +42,7 @@ const App: React.FC = () => {
     <LeaperContainer>
       {isActive ? (
         <Leaper on={entries} remove={removeMotion} initial={initial}>
-          {style => <div style={style}>Hello World!</div>}
+          {style => <div style={style}>\\ Hello World! //</div>}
         </Leaper>
       ) : (
         <></>

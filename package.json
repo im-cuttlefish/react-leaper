@@ -1,6 +1,6 @@
 {
   "name": "react-leaper",
-  "version": "0.0.3",
+  "version": "0.2.0",
   "description": "animation component independent of renderers",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

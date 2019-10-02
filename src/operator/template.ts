@@ -4,7 +4,7 @@ interface TemplateMap {
   [key: string]: (x: number | string) => number | string;
 }
 
-export const template = (templateMap: TemplateMap, motion: Motion): Motion =>
+export const template = (motion: Motion, templateMap: TemplateMap): Motion =>
   function*(style) {
     const generator = motion(style);
     let delta = 0;
