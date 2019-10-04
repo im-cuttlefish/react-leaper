@@ -41,7 +41,7 @@ const App: React.FC = () => {
   return (
     <LeaperContainer>
       {isActive ? (
-        <Leaper on={entries} remove={removeMotion} initial={initial}>
+        <Leaper on={entries} remove={removeMotion} onAdded={() => console.log("added")} onRemoved={() => console.log("removed")} initial={initial}>
           {style => <div style={style}>\\ Hello World! //</div>}
         </Leaper>
       ) : (

@@ -18,6 +18,8 @@ export interface Props {
   add?: Motion;
   remove?: Motion;
   initial?: Style;
+  onAdded?: () => void;
+  onRemoved?: () => void;
   children: (style: Style) => ReactElement;
 }
 
@@ -42,12 +44,19 @@ export class Leaper extends Component<Props, State> {
   }
 
   componentDidMount() {
-    const { add, on } = this.props;
+    const { add, onAdded, on } = this.props;
     const { style } = this.state;
     this.ticker();
 
     if (add) {
-      this.currentMotion.add(add(style));
+      const withAdded: Motion = function*(style) {
+        yield* add(style);
+        onAdded && onAdded();
+      };
+
+      this.currentMotion.add(withAdded(style));
+    } else {
+      onAdded && onAdded();
     }
 
     if (on) {
@@ -64,11 +73,18 @@ export class Leaper extends Component<Props, State> {
   }
 
   componentWillUnmount() {
-    const { children, remove } = this.props;
+    const { children, remove, onRemoved } = this.props;
     const { style } = this.state;
 
     if (remove) {
-      this.context.recycle(style, remove, children);
+      const withRemoved: Motion = function*(style) {
+        yield* remove(style);
+        onRemoved && onRemoved();
+      };
+
+      this.context.recycle(style, withRemoved, children);
+    } else {
+      onRemoved && onRemoved();
     }
 
     cancelAnimationFrame(this.frameID);
