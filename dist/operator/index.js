@@ -16,3 +16,7 @@ var repeat_1 = require("./repeat");
 exports.repeat = repeat_1.repeat;
 var template_1 = require("./template");
 exports.template = template_1.template;
+var done_1 = require("./done");
+exports.done = done_1.done;
+var wait_1 = require("./wait");
+exports.wait = wait_1.wait;

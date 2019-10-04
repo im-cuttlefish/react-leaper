@@ -13,4 +13,6 @@ var attatchDispatcher_1 = require("./attatchDispatcher");
 exports.attatchDispatcher = attatchDispatcher_1.attatchDispatcher;
 var useDispatcher_1 = require("./useDispatcher");
 exports.useDispatcher = useDispatcher_1.useDispatcher;
+var useFactory_1 = require("./useFactory");
+exports.useFactory = useFactory_1.useFactory;
 __export(require("./operator"));
