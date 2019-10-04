@@ -14,7 +14,7 @@ exports.template = (motion, templateMap) => function* (style) {
             if (result) {
                 delta = yield result;
             }
-            continue;
+            break;
         }
         delta = yield result;
     }

@@ -23,7 +23,7 @@ export const template = (motion: Motion, templateMap: TemplateMap): Motion =>
           delta = yield result;
         }
 
-        continue;
+        break;
       }
 
       delta = yield result as Style;
