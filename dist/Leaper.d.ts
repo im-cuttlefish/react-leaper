@@ -9,6 +9,8 @@ export interface Props {
     add?: Motion;
     remove?: Motion;
     initial?: Style;
+    onAdded?: () => void;
+    onRemoved?: () => void;
     children: (style: Style) => ReactElement;
 }
 export declare class Leaper extends Component<Props, State> {

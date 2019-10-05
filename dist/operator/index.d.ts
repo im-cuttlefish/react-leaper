@@ -6,3 +6,5 @@ export { series } from "./series";
 export { pallarel } from "./pallarel";
 export { repeat } from "./repeat";
 export { template } from "./template";
+export { done } from "./done";
+export { wait } from "./wait";
