@@ -38,16 +38,6 @@ class Leaper extends react_1.Component {
         const { add, onAdded, on } = this.props;
         const { style } = this.state;
         this.ticker();
-        if (add) {
-            const withAdded = function* (style) {
-                yield* add(style);
-                onAdded && onAdded();
-            };
-            this.currentMotion.add(withAdded(style));
-        }
-        else {
-            onAdded && onAdded();
-        }
         if (on) {
             for (const [dispatcher, motion] of on) {
                 const callback = () => {
@@ -58,10 +48,24 @@ class Leaper extends react_1.Component {
                 dispatcher[symbol_1.registerCallback](callback);
             }
         }
+        if (add) {
+            const withAdded = function* (style) {
+                yield* add(style);
+                onAdded && onAdded();
+            };
+            this.currentMotion.add(withAdded(style));
+        }
+        else {
+            onAdded && onAdded();
+        }
     }
     componentWillUnmount() {
         const { children, remove, onRemoved } = this.props;
         const { style } = this.state;
+        cancelAnimationFrame(this.frameID);
+        for (const [dispatcher, callback] of this.motionCallback) {
+            dispatcher[symbol_1.unregisterCallback](callback);
+        }
         if (remove) {
             const withRemoved = function* (style) {
                 yield* remove(style);
@@ -71,10 +75,6 @@ class Leaper extends react_1.Component {
         }
         else {
             onRemoved && onRemoved();
-        }
-        cancelAnimationFrame(this.frameID);
-        for (const [dispatcher, callback] of this.motionCallback) {
-            dispatcher[symbol_1.unregisterCallback](callback);
         }
     }
 }

@@ -46,18 +46,8 @@ export class Leaper extends Component<Props, State> {
   componentDidMount() {
     const { add, onAdded, on } = this.props;
     const { style } = this.state;
+
     this.ticker();
-
-    if (add) {
-      const withAdded: Motion = function*(style) {
-        yield* add(style);
-        onAdded && onAdded();
-      };
-
-      this.currentMotion.add(withAdded(style));
-    } else {
-      onAdded && onAdded();
-    }
 
     if (on) {
       for (const [dispatcher, motion] of on) {
@@ -70,11 +60,28 @@ export class Leaper extends Component<Props, State> {
         dispatcher[registerCallback](callback);
       }
     }
+
+    if (add) {
+      const withAdded: Motion = function*(style) {
+        yield* add(style);
+        onAdded && onAdded();
+      };
+
+      this.currentMotion.add(withAdded(style));
+    } else {
+      onAdded && onAdded();
+    }
   }
 
   componentWillUnmount() {
     const { children, remove, onRemoved } = this.props;
     const { style } = this.state;
+
+    cancelAnimationFrame(this.frameID);
+
+    for (const [dispatcher, callback] of this.motionCallback) {
+      dispatcher[unregisterCallback](callback);
+    }
 
     if (remove) {
       const withRemoved: Motion = function*(style) {
@@ -85,12 +92,6 @@ export class Leaper extends Component<Props, State> {
       this.context.recycle(style, withRemoved, children);
     } else {
       onRemoved && onRemoved();
-    }
-
-    cancelAnimationFrame(this.frameID);
-
-    for (const [dispatcher, callback] of this.motionCallback) {
-      dispatcher[unregisterCallback](callback);
     }
   }
 
